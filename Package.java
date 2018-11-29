@@ -134,14 +134,14 @@ public class Package {
      */
     public String shippingLabel() {
         return String.format(
-                "====================\n" +
-                " TO: %s\n" +
-                " %s \n" +
-                " %s, %s, %d \n" +
-                " Weight: %.2f \n" +
-                " Price: $%.2fn\n" +
-                " Product: %s \n" +
-                " ====================",
+                "==================== \n" +
+                "TO: %s \n" +
+                "%s \n" +
+                "%s, %s, %d \n" +
+                "Weight: %.2f \n" +
+                "Price: $%.2fn \n" +
+                "Product: %s \n" +
+                "====================",
                 destination.getName(), destination.getAddress(), destination.getCity(), destination.getState(),
                 destination.getZipCode(),weight, price, product);
     }

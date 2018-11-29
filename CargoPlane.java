@@ -11,7 +11,9 @@ public class CargoPlane extends Vehicle {
      * Default Constructor
      */
     //============================================================================
-    //TODO
+    public CargoPlane() {
+        super();
+    }
     
     //============================================================================
 
@@ -22,7 +24,9 @@ public class CargoPlane extends Vehicle {
      * @param maxWeight    maximum weight that the vehicle can hold
      */
     //============================================================================
-    //TODO
+    public CargoPlane(String licensePlate, double maxWeight) {
+        super(licensePlate, maxWeight); //not sure
+    }
     
     //============================================================================
 
@@ -35,7 +39,7 @@ public class CargoPlane extends Vehicle {
     @Override
     public void fill(ArrayList<Package> warehousePackages) {
     	//TODO
-        
+        //haven't finished fill method in Vehicle
     }
 
     /*
@@ -52,8 +56,11 @@ public class CargoPlane extends Vehicle {
      */
     @Override
     public double getProfit() {
-    	//TODO
-        
+        double profit = 0;
+        for (Package pkg : super.getPackages()) {
+            profit = profit + pkg.getPrice() - (getMaxRange() * GAS_RATE);
+        }
+        return profit;
     }
 
     /**
@@ -70,8 +77,20 @@ public class CargoPlane extends Vehicle {
      */
     @Override
     public String report() {
-    	//TODO
-       
+        String firstPart = String.format(
+                "==========Cargo Plane Report========== \n" +
+                        "License Plate No.: %s \n" +
+                        "Destination: %d \n" +
+                        "Weight Load: %.2f/%.2f \n" +
+                        "Net Profit: $%.2f \n" +
+                        "=====Shipping Labels===== \n",
+                getLicensePlate(), getZipDest(), getCurrentWeight(), getMaxWeight(), getProfit());
+        String secondPart = "";
+        for (Package pkg : getPackages()) {
+            secondPart += pkg.shippingLabel() + "\n";
+        }
+        String lastPart = "==============================";
+        return firstPart + secondPart + lastPart;
     }
 
    
