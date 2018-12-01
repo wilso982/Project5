@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -23,20 +24,35 @@ public class Warehouse {
 
     	
     	//1) load data (vehicle, packages, profits, packages shipped and primeday) from files using DatabaseManager
-    	
+//        ArrayList<Vehicle> vehilces = DatabaseManager.loadVehicles(VEHICLE_FILE);
+//        for (int i = 0; i < vehilces.size(); i++) {
+//            System.out.println(vehilces.get(i).report());
+//        }
     	
     	
     	//2) Show menu and handle user inputs
         Scanner input = new Scanner(System.in);
+        boolean primeDay = false;
         while (true) {
-            System.out.println("==========Options==========\n" +
-                    "1) Add Package\n" +
-                    "2) Add Vehicle\n" +
-                    "3) Activate Prime Day\n" +
-                    "4) Send Vehicle\n" +
-                    "5) Print Statistics\n" +
-                    "6) Exit\n" +
-                    "===========================");
+            if (!primeDay) {
+                System.out.println("==========Options==========\n" +
+                        "1) Add Package\n" +
+                        "2) Add Vehicle\n" +
+                        "3) Activate Prime Day\n" +
+                        "4) Send Vehicle\n" +
+                        "5) Print Statistics\n" +
+                        "6) Exit\n" +
+                        "===========================");
+            } else {
+                System.out.println("==========Options==========\n" +
+                        "1) Add Package\n" +
+                        "2) Add Vehicle\n" +
+                        "3) Deactivate Prime Day\n" +
+                        "4) Send Vehicle\n" +
+                        "5) Print Statistics\n" +
+                        "6) Exit\n" +
+                        "===========================");
+            }
             boolean menuRunning = true;
             while (menuRunning) {
                 String answer = input.nextLine();
@@ -62,8 +78,18 @@ public class Warehouse {
                         String packageState = input.nextLine();
                         System.out.println("Enter ZIP Code:");
                         int packageZip = input.nextInt();
-                        Package pkg = new Package(packageID, packageName, packageWeight, packagePrice,
-                                new ShippingAddress(buyerName, packageAddress, packageCity, packageState, packageZip));
+                        input.nextLine();
+                        Package pkg;
+                        if (primeDay) {
+                            pkg = new Package(packageID, packageName, packageWeight,
+                                    packagePrice * (1 - PRIME_DAY_DISCOUNT),
+                                    new ShippingAddress(buyerName, packageAddress,
+                                            packageCity, packageState, packageZip));
+                        } else {
+                            pkg = new Package(packageID, packageName, packageWeight, packagePrice,
+                                    new ShippingAddress(buyerName, packageAddress,
+                                            packageCity, packageState, packageZip));
+                        }
                         System.out.println();
                         System.out.println(pkg.shippingLabel());
                         System.out.println();
@@ -115,8 +141,8 @@ public class Warehouse {
                         System.out.println();
                         menuRunning = false;
                         break;
-                    case("3"):
-                        //change of format
+                    case("3"): //change menu to prime day
+                        primeDay = !primeDay;
                         System.out.println();
                         System.out.println("Case 3");
                         System.out.println();

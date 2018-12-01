@@ -48,18 +48,13 @@ public class Package {
     public String getID() {
     	return id;
     	}
-    
-    
-    
+
     /**
      * @return Name of product in package
      */
     public String getProduct() {
     	return product;
     }
-    
-    
-    
 
     /**
      * @param product the product name to set
@@ -68,9 +63,6 @@ public class Package {
     	this.product = product;
     }
 
-    
-    
-    
     /**
      * @return price of product in package
      */
@@ -78,9 +70,6 @@ public class Package {
     	return price;
     }
 
-    
-    
-    
     /**
      * @param price the price to set
      */
@@ -88,9 +77,6 @@ public class Package {
     	this.price = price;
     }
 
-    
-    
-    
     /**
      * @return Package weight
      */
@@ -98,9 +84,6 @@ public class Package {
     	return weight;
     }
 
-    
-    
-    
     /**
      * @param weight the weight to set
      */
@@ -108,17 +91,12 @@ public class Package {
     	this.weight = weight;
     }
 
-    
-    
     /**
      * @return The shipping address of package
      */
     public ShippingAddress getDestination() {
     	return destination;
     }
-
-    
-    
     
     /**
      * @param destination the shipping address to set
@@ -127,8 +105,6 @@ public class Package {
     	this.destination = destination;
     }
 
-    
-    
     /**
      * @return The package's shipping label.
      */

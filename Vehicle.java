@@ -163,7 +163,7 @@ public class Vehicle implements Profitable {
 
     //this will be over ridden so not sure what to do with it as well
     public double getProfit() {
-        double profit = 0;
+        double profit = 0; //have to actually save all profits from vehicles
         for (Package pkg : packages) {
             profit += pkg.getPrice();
         }

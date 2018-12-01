@@ -57,6 +57,9 @@ public class CargoPlane extends Vehicle {
     @Override
     public double getProfit() {
         double profit = 0;
+        if (super.getPackages() == null) {
+            return profit;
+        }
         for (Package pkg : super.getPackages()) {
             profit = profit + pkg.getPrice() - (getMaxRange() * GAS_RATE);
         }
@@ -86,8 +89,10 @@ public class CargoPlane extends Vehicle {
                         "=====Shipping Labels===== \n",
                 getLicensePlate(), getZipDest(), getCurrentWeight(), getMaxWeight(), getProfit());
         String secondPart = "";
-        for (Package pkg : getPackages()) {
-            secondPart += pkg.shippingLabel() + "\n";
+        if (super.getPackages() != null) {
+            for (Package pkg : getPackages()) {
+                secondPart += pkg.shippingLabel() + "\n";
+            }
         }
         String lastPart = "==============================";
         return firstPart + secondPart + lastPart;
