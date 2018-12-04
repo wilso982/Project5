@@ -75,8 +75,21 @@ public class DatabaseManager {
      * @return ArrayList of packages
      */
     public static ArrayList<Package> loadPackages(File file) {
-    	//TODO
-        return new ArrayList<Package>();
+        ArrayList<Package> packages = new ArrayList<Package>();
+        try {
+            br = new BufferedReader(fr = new FileReader(file));
+            String tempLine;
+            while((tempLine = br.readLine()) != null) {
+                String[] tempLines = tempLine.split(",");
+                packages.add(new Package(tempLines[0], tempLines[1], Double.parseDouble(tempLines[2]),
+                        Double.parseDouble(tempLines[3]),
+                        new ShippingAddress(tempLines[4], tempLines[5], tempLines[6],
+                                tempLines[7], Integer.parseInt(tempLines[8]))));
+            }
+        } catch (IOException e) {
+            return packages;
+        }
+        return packages;
     }
 
 
@@ -92,8 +105,17 @@ public class DatabaseManager {
      * @return profits from file
      */
     public static double loadProfit(File file) {
-    	//TODO
-        return 0;
+        double profit = 0;
+        try {
+            br = new BufferedReader(fr = new FileReader(file));
+            String tempLine;
+            while((tempLine = br.readLine()) != null) {
+                profit = Double.parseDouble(tempLine);
+            }
+        } catch (IOException e) {
+            return profit;
+        }
+        return profit;
     }
 
 
@@ -108,8 +130,17 @@ public class DatabaseManager {
      * @return number of packages shipped from file
      */
     public static int loadPackagesShipped(File file) {
-    	//TODO
-        return 0;
+        int numPackages = 0;
+        try {
+            br = new BufferedReader(fr = new FileReader(file));
+            String tempLine;
+            while((tempLine = br.readLine()) != null) {
+                numPackages = Integer.parseInt(tempLine);
+            }
+        } catch (IOException e) {
+            return numPackages;
+        }
+        return numPackages;
     }
 
 
@@ -123,8 +154,20 @@ public class DatabaseManager {
      * @return whether or not it is prime day
      */
     public static boolean loadPrimeDay(File file) {
-    	//TODO
-        return true;
+        int primeNumber = 0;
+        try {
+            br = new BufferedReader(fr = new FileReader(file));
+            String tempLine;
+            while((tempLine = br.readLine()) != null) {
+                 primeNumber = Integer.parseInt(tempLine);
+            }
+            if (primeNumber == 1) {
+                return true;
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return false;
     }
 
 
