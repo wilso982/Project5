@@ -44,6 +44,7 @@ public class DatabaseManager {
                         break;
                 }
             }
+            br.close();
         } catch (IOException e) {
             return vehicles;
         }
@@ -86,6 +87,7 @@ public class DatabaseManager {
                         new ShippingAddress(tempLines[4], tempLines[5], tempLines[6],
                                 tempLines[7], Integer.parseInt(tempLines[8]))));
             }
+            br.close();
         } catch (IOException e) {
             return packages;
         }
@@ -112,6 +114,7 @@ public class DatabaseManager {
             while((tempLine = br.readLine()) != null) {
                 profit = Double.parseDouble(tempLine);
             }
+            br.close();
         } catch (IOException e) {
             return profit;
         }
@@ -137,6 +140,7 @@ public class DatabaseManager {
             while((tempLine = br.readLine()) != null) {
                 numPackages = Integer.parseInt(tempLine);
             }
+            br.close();
         } catch (IOException e) {
             return numPackages;
         }
@@ -164,6 +168,7 @@ public class DatabaseManager {
             if (primeNumber == 1) {
                 return true;
             }
+            br.close();
         } catch (IOException e) {
             return false;
         }
@@ -187,7 +192,24 @@ public class DatabaseManager {
      * @param vehicles ArrayList of vehicles to save to file
      */
     public static void saveVehicles(File file, ArrayList<Vehicle> vehicles) {
-    	//TODO
+        String type = "";
+    	File f = new File(String.valueOf(file));
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+            for (int i = 0; i < vehicles.size(); i++) {
+                if (vehicles.get(i) instanceof Truck) {
+                    type = "Truck";
+                } else if (vehicles.get(i) instanceof Drone) {
+                    type = "Drone";
+                } else if (vehicles.get(i) instanceof CargoPlane) {
+                    type = "Cargo Plane";
+                }
+                bw.append(type + "," + vehicles.get(i).getLicensePlate() + "," + vehicles.get(i).getMaxWeight() + "\n");
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -212,7 +234,22 @@ public class DatabaseManager {
      * @param packages ArrayList of packages to save to file
      */
     public static void savePackages(File file, ArrayList<Package> packages) {
-    	//TODO
+        File f = new File(String.valueOf(file));
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+            for (int i = 0; i < packages.size(); i++) {
+                bw.append(packages.get(i).getID() + "," + packages.get(i).getProduct() + "," +
+                        packages.get(i).getWeight() + "," + packages.get(i).getPrice() + "," +
+                        packages.get(i).getDestination().getName() + "," +
+                        packages.get(i).getDestination().getAddress() + "," +
+                        packages.get(i).getDestination().getCity() + "," +
+                        packages.get(i).getDestination().getState() + "," +
+                        packages.get(i).getDestination().getZipCode() + "\n");
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -226,7 +263,14 @@ public class DatabaseManager {
      */
 
     public static void saveProfit(File file, double profit) {
-    	//TODO
+        File f = new File(String.valueOf(file));
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(f));
+            pw.printf("%.2f" + "\n", profit);
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -241,7 +285,14 @@ public class DatabaseManager {
      */
 
     public static void savePackagesShipped(File file, int nPackages) {
-    	//TODO
+        File f = new File(String.valueOf(file));
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(f));
+            pw.printf("%d" + "\n", nPackages);
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -258,6 +309,17 @@ public class DatabaseManager {
      */
 
     public static void savePrimeDay(File file, boolean primeDay) {
-    	//TODO
+        int primeNumber = 0;
+        if (primeDay) {
+            primeNumber = 1;
+        }
+        File f = new File(String.valueOf(file));
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(f));
+            pw.printf("%d" + "\n", primeNumber);
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
