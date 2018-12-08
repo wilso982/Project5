@@ -48,7 +48,7 @@ public class Drone extends Vehicle {
             return profit;
         }
         for (Package pkg : super.getPackages()) {
-            profit = profit + pkg.getPrice() - (getMaxRange() * GAS_RATE);
+            profit = profit + pkg.getPrice() - (getMaxRange(getPackages()) * GAS_RATE);
         }
         return profit;
     }

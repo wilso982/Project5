@@ -140,7 +140,7 @@ public class Vehicle implements Profitable {
      * @return whether or not Vehicle is full
      */
     public boolean isFull() {
-        if (currentWeight == maxWeight) {
+        if (currentWeight >= maxWeight) {
             return true;
         }
         return false;
@@ -157,10 +157,17 @@ public class Vehicle implements Profitable {
      * @param warehousePackages List of packages to add from
      */
     public void fill(ArrayList<Package> warehousePackages) {
-        //TODO
-        //way to hard saving for later when I better understand the program as a whole
+        for (int i = 0; isFull(); i++) {
+            for (int j = 0; j < warehousePackages.size(); j++) {
+                int distance = Math.abs(warehousePackages.get(j).getDestination().getZipCode() - getZipDest());
+                if (distance == i) {
+                    addPackage(warehousePackages.get(j));
+                }
+            }
+        }
     }
 
+    
     //this will be over ridden so not sure what to do with it as well
     public double getProfit() {
         double profit = 0; //have to actually save all profits from vehicles
@@ -176,11 +183,11 @@ public class Vehicle implements Profitable {
     }
 
     //my own method to help with the fill method as well the profit methods for all vehicles
-    public int getMaxRange() {
+    public int getMaxRange(ArrayList<Package> packages) {
         maxRange = 0;
         for (Package pkg : packages) {
-            if (pkg.getDestination().getZipCode() - zipDest > maxRange) {
-                maxRange = pkg.getDestination().getZipCode() - zipDest;
+            if (Math.abs(pkg.getDestination().getZipCode() - zipDest) > maxRange) {
+                maxRange = Math.abs(pkg.getDestination().getZipCode() - zipDest);
             }
         }
         return maxRange;

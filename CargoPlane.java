@@ -38,8 +38,14 @@ public class CargoPlane extends Vehicle {
      */
     @Override
     public void fill(ArrayList<Package> warehousePackages) {
-    	//TODO
-        //haven't finished fill method in Vehicle
+        for (int i = 0; isFull(); i+=10) {
+            for (int j = 0; j < warehousePackages.size(); j++) {
+                int distance = Math.abs(warehousePackages.get(j).getDestination().getZipCode() - getZipDest());
+                if (distance == i) {
+                    addPackage(warehousePackages.get(j));
+                }
+            }
+        }
     }
 
     /*
@@ -61,7 +67,7 @@ public class CargoPlane extends Vehicle {
             return profit;
         }
         for (Package pkg : super.getPackages()) {
-            profit = profit + pkg.getPrice() - (getMaxRange() * GAS_RATE);
+            profit = profit + pkg.getPrice() - (getMaxRange(getPackages()) * GAS_RATE);
         }
         return profit;
     }
