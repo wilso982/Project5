@@ -1,6 +1,14 @@
 /**
- * <h1>Shipping Address</h1> Represents a shipping address
+ * ShippingAddress.java
+ *
+ * This program creates the shippingadress object.
+ *
+ * @author AustinWilson section 5
+ * @author TannerDent section 5
+ * @version 12/8/2018
+ *
  */
+
 public class ShippingAddress {
     private String name; //e.g. (Lawson Computer Science Building)
     private String address; //e.g. Street Address (305 N University St)

@@ -1,6 +1,14 @@
 /**
- * <h1>Package</h1> Represents a package
+ * Package.java
+ *
+ * This program creates the package object.
+ *
+ * @author AustinWilson section 5
+ * @author TannerDent section 5
+ * @version 12/8/2018
+ *
  */
+
 public class Package {
     private String id;
     private String product;

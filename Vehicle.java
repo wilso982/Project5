@@ -1,7 +1,14 @@
 import java.util.ArrayList;
 
 /**
- * <h1>Vehicle</h1> Represents a vehicle
+ * Vehicle.java
+ *
+ * This program creates the vehicle object.
+ *
+ * @author AustinWilson section 5
+ * @author TannerDent section 5
+ * @version 12/8/2018
+ *
  */
 
 public class Vehicle implements Profitable {

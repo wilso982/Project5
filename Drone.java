@@ -1,7 +1,14 @@
 import java.util.ArrayList;
 
 /**
- * <h1>Drone</h1> Represents a Drone
+ * Drone.java
+ *
+ * This program is the Drone version of the vehicle class.
+ *
+ * @author AustinWilson section 5
+ * @author TannerDent section 5
+ * @version 12/8/2018
+ *
  */
 
 public class Drone extends Vehicle {

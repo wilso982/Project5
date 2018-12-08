@@ -2,10 +2,16 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * <h1>Database Manager</h1>
+ * DatabaseManager.java
  *
- * Used to locally save and retrieve data.
+ * This program deals with reading and writing to files.
+ *
+ * @author AustinWilson section 5
+ * @author TannerDent section 5
+ * @version 12/8/2018
+ *
  */
+
 public class DatabaseManager {
     public static FileReader fr;
     public static BufferedReader br;

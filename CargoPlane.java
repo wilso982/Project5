@@ -2,7 +2,14 @@ import java.util.ArrayList;
 
 
 /**
- * <h1>CargoPlane</h1> Represents a Cargo Plane
+ * Truck.java
+ *
+ * This program is the Cargo Plane version of the vehicle class.
+ *
+ * @author AustinWilson section 5
+ * @author TannerDent section 5
+ * @version 12/8/2018
+ *
  */
 public class CargoPlane extends Vehicle {
     final double GAS_RATE = 2.33;

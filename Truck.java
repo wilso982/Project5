@@ -1,9 +1,16 @@
 import java.util.ArrayList;
 
-
 /**
- * <h1>Truck</h1> Represents a Truck
+ * Truck.java
+ *
+ * This program is the Truck version of the vehicle class.
+ *
+ * @author AustinWilson section 5
+ * @author TannerDent section 5
+ * @version 12/8/2018
+ *
  */
+
 public class Truck extends Vehicle {
 
     private final double GAS_RATE = 1.66;

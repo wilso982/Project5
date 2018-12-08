@@ -3,7 +3,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * <h1>Warehouse</h1>
+ * Warehouse.java
+ *
+ * This program runs the user interface for the warehouse.
+ *
+ * @author AustinWilson section 5
+ * @author TannerDent section 5
+ * @version 12/8/2018
+ *
  */
 
 public class Warehouse {
