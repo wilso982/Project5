@@ -3,18 +3,18 @@ import java.util.ArrayList;
 
 /**
  * DatabaseManager.java
- *
+ * <p>
  * This program deals with reading and writing to files.
  *
  * @author AustinWilson section 5
  * @author TannerDent section 5
  * @version 12/8/2018
- *
  */
 
 public class DatabaseManager {
     public static FileReader fr;
     public static BufferedReader br;
+
     /**
      * Creates an ArrayList of Vehicles from the passed CSV file. The values are in
      * the CSV file as followed:
@@ -31,19 +31,20 @@ public class DatabaseManager {
     public static ArrayList<Vehicle> loadVehicles(File file) {
         ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
         try {
-            br = new BufferedReader(fr = new FileReader(file));
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
             String tempLine;
-            while((tempLine = br.readLine()) != null) {
+            while ((tempLine = br.readLine()) != null) {
                 String[] tempLines = tempLine.split(",");
                 String type = tempLines[0];
                 switch (type) {
-                    case("Truck"):
+                    case ("Truck"):
                         vehicles.add(new Truck(tempLines[1], Double.parseDouble(tempLines[2])));
                         break;
-                    case("Drone"):
+                    case ("Drone"):
                         vehicles.add(new Drone(tempLines[1], Double.parseDouble(tempLines[2])));
                         break;
-                    case("Cargo Plane"):
+                    case ("Cargo Plane"):
                         vehicles.add(new CargoPlane(tempLines[1], Double.parseDouble(tempLines[2])));
                         break;
                     default:
@@ -56,9 +57,6 @@ public class DatabaseManager {
         }
         return vehicles;
     }
-
-
-
 
 
     /**
@@ -75,7 +73,7 @@ public class DatabaseManager {
      * <li>State</li>
      * <li>ZIP Code</li>
      * </ol>
-     *
+     * <p>
      * If filePath does not exist, a blank ArrayList will be returned.
      *
      * @param file CSV File
@@ -84,9 +82,10 @@ public class DatabaseManager {
     public static ArrayList<Package> loadPackages(File file) {
         ArrayList<Package> packages = new ArrayList<Package>();
         try {
-            br = new BufferedReader(fr = new FileReader(file));
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
             String tempLine;
-            while((tempLine = br.readLine()) != null) {
+            while ((tempLine = br.readLine()) != null) {
                 String[] tempLines = tempLine.split(",");
                 packages.add(new Package(tempLines[0], tempLines[1], Double.parseDouble(tempLines[2]),
                         Double.parseDouble(tempLines[3]),
@@ -101,10 +100,6 @@ public class DatabaseManager {
     }
 
 
-
-
-
-
     /**
      * Returns the total Profits from passed text file. If the file does not exist 0
      * will be returned.
@@ -115,9 +110,10 @@ public class DatabaseManager {
     public static double loadProfit(File file) {
         double profit = 0;
         try {
-            br = new BufferedReader(fr = new FileReader(file));
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
             String tempLine;
-            while((tempLine = br.readLine()) != null) {
+            while ((tempLine = br.readLine()) != null) {
                 profit = Double.parseDouble(tempLine);
             }
             br.close();
@@ -126,9 +122,6 @@ public class DatabaseManager {
         }
         return profit;
     }
-
-
-
 
 
     /**
@@ -141,9 +134,10 @@ public class DatabaseManager {
     public static int loadPackagesShipped(File file) {
         int numPackages = 0;
         try {
-            br = new BufferedReader(fr = new FileReader(file));
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
             String tempLine;
-            while((tempLine = br.readLine()) != null) {
+            while ((tempLine = br.readLine()) != null) {
                 numPackages = Integer.parseInt(tempLine);
             }
             br.close();
@@ -152,8 +146,6 @@ public class DatabaseManager {
         }
         return numPackages;
     }
-
-
 
 
     /**
@@ -166,10 +158,11 @@ public class DatabaseManager {
     public static boolean loadPrimeDay(File file) {
         int primeNumber = 0;
         try {
-            br = new BufferedReader(fr = new FileReader(file));
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
             String tempLine;
-            while((tempLine = br.readLine()) != null) {
-                 primeNumber = Integer.parseInt(tempLine);
+            while ((tempLine = br.readLine()) != null) {
+                primeNumber = Integer.parseInt(tempLine);
             }
             if (primeNumber == 1) {
                 return true;
@@ -180,9 +173,6 @@ public class DatabaseManager {
         }
         return false;
     }
-
-
-
 
 
     /**
@@ -199,7 +189,7 @@ public class DatabaseManager {
      */
     public static void saveVehicles(File file, ArrayList<Vehicle> vehicles) {
         String type = "";
-    	File f = new File(String.valueOf(file));
+        File f = new File(String.valueOf(file));
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
             for (int i = 0; i < vehicles.size(); i++) {
@@ -217,8 +207,6 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
-
 
 
     /**
@@ -259,8 +247,6 @@ public class DatabaseManager {
     }
 
 
-
-
     /**
      * Saves profit to text file.
      *
@@ -280,9 +266,6 @@ public class DatabaseManager {
     }
 
 
-
-
-
     /**
      * Saves number of packages shipped to text file.
      *
@@ -300,10 +283,6 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
-
-
-
 
 
     /**

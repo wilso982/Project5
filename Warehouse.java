@@ -1,45 +1,59 @@
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Warehouse.java
- *
+ * <p>
  * This program runs the user interface for the warehouse.
  *
  * @author AustinWilson section 5
  * @author TannerDent section 5
  * @version 12/8/2018
- *
  */
 
 public class Warehouse {
-	final static String folderPath = "files/";
-    final static File VEHICLE_FILE = new File(folderPath + "VehicleList.csv");
-    final static File PACKAGE_FILE = new File(folderPath + "PackageList.csv");
-    final static File PROFIT_FILE = new File(folderPath + "Profit.txt");
-    final static File N_PACKAGES_FILE = new File(folderPath + "NumberOfPackages.txt");
-    final static File PRIME_DAY_FILE = new File(folderPath + "PrimeDay.txt");
+    final static String FOLDER_PATH = "files/";
+    final static File VEHICLE_FILE = new File(FOLDER_PATH + "VehicleList.csv");
+    static ArrayList<Vehicle> vehicles = new ArrayList<>();
+    final static File PACKAGE_FILE = new File(FOLDER_PATH + "PackageList.csv");
+    static ArrayList<Package> packages = new ArrayList<>();
+    final static File PROFIT_FILE = new File(FOLDER_PATH + "Profit.txt");
+    static double profit = 0.0;
+    final static File N_PACKAGES_FILE = new File(FOLDER_PATH + "NumberOfPackages.txt");
+    static int numPackagesShipped = 0;
+    final static File PRIME_DAY_FILE = new File(FOLDER_PATH + "PrimeDay.txt");
+    static boolean primeDay = false;
+
     final static double PRIME_DAY_DISCOUNT = .15;
+
+    public static void printStatisticsReport(double profits, int packagesShipped, int numberOfPackages) {
+        System.out.printf("==========Statistics==========\n" +
+                "Profits:                 %$.2f\n" +
+                "Packages Shipped:            %d\n" +
+                "Packages in Warehouse:       %d\n" +
+                "==============================", profits, packagesShipped, numberOfPackages);
+    }
 
     /**
      * Main Method
-     * 
+     *
      * @param args list of command line arguements
      */
+
     public static void main(String[] args) {
 
-    	
-    	//1) load data (vehicle, packages, profits, packages shipped and primeday) from files using DatabaseManager
-//        ArrayList<Vehicle> vehilces = DatabaseManager.loadVehicles(VEHICLE_FILE);
-//        for (int i = 0; i < vehilces.size(); i++) {
-//            System.out.println(vehilces.get(i).report());
-//        }
-    	
-    	
-    	//2) Show menu and handle user inputs
+        //1) load data (vehicle, packages, profits, packages shipped and primeday) from files using DatabaseManager
+
+        vehicles = DatabaseManager.loadVehicles(VEHICLE_FILE);
+        packages = DatabaseManager.loadPackages(PACKAGE_FILE);
+        profit = DatabaseManager.loadProfit(PROFIT_FILE);
+        numPackagesShipped = DatabaseManager.loadPackagesShipped(N_PACKAGES_FILE);
+        primeDay = DatabaseManager.loadPrimeDay(PRIME_DAY_FILE);
+
+        //2) Show menu and handle user inputs
         Scanner input = new Scanner(System.in);
-        boolean primeDay = false;
         while (true) {
             if (!primeDay) {
                 System.out.println("==========Options==========\n" +
@@ -64,7 +78,7 @@ public class Warehouse {
             while (menuRunning) {
                 String answer = input.nextLine();
                 switch (answer) {
-                    case("1"): //1) Add Package
+                    case ("1"): //1) Add Package
                         System.out.println();
                         System.out.println("Enter Package ID:");
                         String packageID = input.nextLine();
@@ -97,12 +111,13 @@ public class Warehouse {
                                     new ShippingAddress(buyerName, packageAddress,
                                             packageCity, packageState, packageZip));
                         }
+                        packages.add(pkg);
                         System.out.println();
                         System.out.println(pkg.shippingLabel());
                         System.out.println();
                         menuRunning = false;
                         break;
-                    case("2"): //2) Add Vehicle
+                    case ("2"): //2) Add Vehicle
                         System.out.println();
                         System.out.println("Vehicle Options:\n" +
                                 "1) Truck\n" +
@@ -119,7 +134,7 @@ public class Warehouse {
                                     System.out.println("Enter Maximum Carry Weight: ");
                                     double truckMaxWeight = input.nextDouble();
                                     input.nextLine();
-                                    new Truck(truckLicense, truckMaxWeight);
+                                    vehicles.add(new Truck(truckLicense, truckMaxWeight));
                                     vehicleRunning = false;
                                     break;
                                 case ("2"): //Drone
@@ -128,7 +143,7 @@ public class Warehouse {
                                     System.out.println("Enter Maximum Carry Weight: ");
                                     double droneMaxWeight = input.nextDouble();
                                     input.nextLine();
-                                    new Truck(droneLicense, droneMaxWeight);
+                                    vehicles.add(new Drone(droneLicense, droneMaxWeight));
                                     vehicleRunning = false;
                                     break;
                                 case ("3"): //Cargo Plane
@@ -137,7 +152,7 @@ public class Warehouse {
                                     System.out.println("Enter Maximum Carry Weight: ");
                                     double cargoMaxWeight = input.nextDouble();
                                     input.nextLine();
-                                    new Truck(cargoLicense, cargoMaxWeight);
+                                    vehicles.add(new CargoPlane(cargoLicense, cargoMaxWeight));
                                     vehicleRunning = false;
                                     break;
                                 default:
@@ -148,34 +163,34 @@ public class Warehouse {
                         System.out.println();
                         menuRunning = false;
                         break;
-                    case("3"): //change menu to prime day
+                    case ("3"): //change menu to prime day
                         primeDay = !primeDay;
-                        System.out.println();
-                        System.out.println("Case 3");
                         System.out.println();
                         menuRunning = false;
                         break;
-                    case("4"):
+                    case ("4"):
                         //I think we have to use file reading for this to know if we have any vehicles.
                         System.out.println();
                         System.out.println("Case 4");
                         System.out.println();
                         menuRunning = false;
                         break;
-                    case("5"):
+                    case ("5"):
                         //need to be able to get profit, packages shipped, and packages in warehouse for this one
                         System.out.println();
-                        System.out.printf("==========Statistics==========\n" +
-                                            "Profits:                 $9,874.08\n" +
-                                            "Packages Shipped:                3\n" +
-                                            "Packages in Warehouse:           1\n" +
-                                            "==============================");
+                        printStatisticsReport(profit, numPackagesShipped, packages.size());
                         System.out.println();
                         System.out.println();
                         menuRunning = false;
                         break;
-                    case("6"):
-                        //make sure to save all data during our operations
+                    case ("6"):
+                        //3) save data (vehicle, packages, profits, packages shipped and primeday)
+                        // to files (overwriting them) using DatabaseManager
+                        DatabaseManager.saveVehicles(VEHICLE_FILE, vehicles);
+                        DatabaseManager.savePackages(PACKAGE_FILE, packages);
+                        DatabaseManager.saveProfit(PROFIT_FILE, profit);
+                        DatabaseManager.savePackagesShipped(N_PACKAGES_FILE, numPackagesShipped);
+                        DatabaseManager.savePrimeDay(PRIME_DAY_FILE, primeDay);
                         return;
                     default:
                         System.out.println("Error: Option not available.");
@@ -185,14 +200,5 @@ public class Warehouse {
                 }
             }
         }
-
-
-
-    	
-    	//3) save data (vehicle, packages, profits, packages shipped and primeday) to files (overwriting them) using DatabaseManager
-    	
-    
     }
-
-
 }

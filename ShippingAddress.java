@@ -1,19 +1,18 @@
 /**
  * ShippingAddress.java
- *
+ * <p>
  * This program creates the shippingadress object.
  *
  * @author AustinWilson section 5
  * @author TannerDent section 5
  * @version 12/8/2018
- *
  */
 
 public class ShippingAddress {
     private String name; //e.g. (Lawson Computer Science Building)
     private String address; //e.g. Street Address (305 N University St)
     private String city; // e.g. (West Lafayette)
-    private String  state; // e.g. IN
+    private String state; // e.g. IN
     private int zipCode; //e.g. 47907
 
     public ShippingAddress() {

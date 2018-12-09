@@ -1,12 +1,11 @@
 /**
  * Package.java
- *
+ * <p>
  * This program creates the package object.
  *
  * @author AustinWilson section 5
  * @author TannerDent section 5
  * @version 12/8/2018
- *
  */
 
 public class Package {
@@ -27,17 +26,17 @@ public class Package {
         this.price = 0;
         this.destination = new ShippingAddress();
     }
-    
+
     //============================================================================
+
     /**
      * Constructor
-     * 
+     *
      * @param id          id number of product
      * @param product     name of product in package
      * @param weight      weight of package
      * @param price       price of product
      * @param destination the destination of the package
-     * 
      */
     //============================================================================
     public Package(String id, String product, double weight, double price, ShippingAddress destination) {
@@ -47,70 +46,70 @@ public class Package {
         this.price = price;
         this.destination = destination;
     }
-    
+
     //============================================================================
 
     /**
      * @return id of package
      */
     public String getID() {
-    	return id;
-    	}
+        return id;
+    }
 
     /**
      * @return Name of product in package
      */
     public String getProduct() {
-    	return product;
+        return product;
     }
 
     /**
      * @param product the product name to set
      */
     public void setProduct(String product) {
-    	this.product = product;
+        this.product = product;
     }
 
     /**
      * @return price of product in package
      */
     public double getPrice() {
-    	return price;
+        return price;
     }
 
     /**
      * @param price the price to set
      */
     public void setPrice(double price) {
-    	this.price = price;
+        this.price = price;
     }
 
     /**
      * @return Package weight
      */
     public double getWeight() {
-    	return weight;
+        return weight;
     }
 
     /**
      * @param weight the weight to set
      */
     public void setWeight(double weight) {
-    	this.weight = weight;
+        this.weight = weight;
     }
 
     /**
      * @return The shipping address of package
      */
     public ShippingAddress getDestination() {
-    	return destination;
+        return destination;
     }
-    
+
     /**
      * @param destination the shipping address to set
      */
     public void setDestination(ShippingAddress destination) {
-    	this.destination = destination;
+        this.destination = destination;
     }
 
     /**
@@ -119,15 +118,15 @@ public class Package {
     public String shippingLabel() {
         return String.format(
                 "==================== \n" +
-                "TO: %s \n" +
-                "%s \n" +
-                "%s, %s, %d \n" +
-                "Weight: %.2f \n" +
-                "Price: $%.2fn \n" +
-                "Product: %s \n" +
-                "====================",
+                        "TO: %s \n" +
+                        "%s \n" +
+                        "%s, %s, %d \n" +
+                        "Weight: %.2f \n" +
+                        "Price: $%.2f \n" +
+                        "Product: %s \n" +
+                        "====================",
                 destination.getName(), destination.getAddress(), destination.getCity(), destination.getState(),
-                destination.getZipCode(),weight, price, product);
+                destination.getZipCode(), weight, price, product);
     }
 
 }

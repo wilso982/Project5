@@ -2,13 +2,12 @@ import java.util.ArrayList;
 
 /**
  * Vehicle.java
- *
+ * <p>
  * This program creates the vehicle object.
  *
  * @author AustinWilson section 5
  * @author TannerDent section 5
  * @version 12/8/2018
- *
  */
 
 public class Vehicle implements Profitable {
@@ -34,7 +33,7 @@ public class Vehicle implements Profitable {
 
     /**
      * Constructor
-     * 
+     *
      * @param licensePlate license plate of vehicle
      * @param maxWeight    maximum weight of vehicle
      */
@@ -47,7 +46,7 @@ public class Vehicle implements Profitable {
 
     /**
      * Returns the license plate of this vehicle
-     * 
+     *
      * @return license plate of this vehicle
      */
     public String getLicensePlate() {
@@ -56,7 +55,7 @@ public class Vehicle implements Profitable {
 
     /**
      * Updates the license plate of vehicle
-     * 
+     *
      * @param licensePlate license plate to be updated to
      */
     public void setLicensePlate(String licensePlate) {
@@ -65,7 +64,7 @@ public class Vehicle implements Profitable {
 
     /**
      * Returns the maximum weight this vehicle can carry
-     * 
+     *
      * @return the maximum weight that this vehicle can carry
      */
     public double getMaxWeight() {
@@ -74,7 +73,7 @@ public class Vehicle implements Profitable {
 
     /**
      * Updates the maximum weight of this vehicle
-     * 
+     *
      * @param maxWeight max weight to be updated to
      */
     public void setMaxWeight(double maxWeight) {
@@ -83,7 +82,7 @@ public class Vehicle implements Profitable {
 
     /**
      * Returns the current weight of all packages inside vehicle
-     * 
+     *
      * @return current weight of all packages inside vehicle
      */
     public double getCurrentWeight() {
@@ -92,7 +91,7 @@ public class Vehicle implements Profitable {
 
     /**
      * Returns the current ZIP code desitnation of the vehicle
-     * 
+     *
      * @return current ZIP code destination of vehicle
      */
     public int getZipDest() {
@@ -101,7 +100,7 @@ public class Vehicle implements Profitable {
 
     /**
      * Updates the ZIP code destination of vehicle
-     * 
+     *
      * @param zipDest ZIP code destination to be updated to
      */
     public void setZipDest(int zipDest) {
@@ -110,7 +109,7 @@ public class Vehicle implements Profitable {
 
     /**
      * Returns ArrayList of packages currently in Vehicle
-     * 
+     *
      * @return ArrayList of packages in vehicle
      */
     public ArrayList<Package> getPackages() {
@@ -120,7 +119,7 @@ public class Vehicle implements Profitable {
     /**
      * Adds Package to the vehicle only if has room to carry it (adding it would not
      * cause it to go over its maximum carry weight).
-     * 
+     *
      * @param pkg Package to add
      * @return whether or not it was successful in adding the package
      */
@@ -143,14 +142,11 @@ public class Vehicle implements Profitable {
     /**
      * Returns true if the Vehicle has reached its maximum weight load, false
      * otherwise.
-     * 
+     *
      * @return whether or not Vehicle is full
      */
     public boolean isFull() {
-        if (currentWeight >= maxWeight) {
-            return true;
-        }
-        return false;
+        return currentWeight > maxWeight;
     }
 
     /**
@@ -160,11 +156,15 @@ public class Vehicle implements Profitable {
      * over its maximum weight. The amount the range increases is dependent on the
      * vehicle that is using this. This range it increases by after each iteration
      * is by default one.
-     * 
+     *
      * @param warehousePackages List of packages to add from
      */
+
     public void fill(ArrayList<Package> warehousePackages) {
-        for (int i = 0; isFull(); i++) {
+        for (int i = 0; !isFull(); i++) { //i is our distance
+            if (i > getMaxRange(warehousePackages)) {
+                return;
+            }
             for (int j = 0; j < warehousePackages.size(); j++) {
                 int distance = Math.abs(warehousePackages.get(j).getDestination().getZipCode() - getZipDest());
                 if (distance == i) {
@@ -174,10 +174,10 @@ public class Vehicle implements Profitable {
         }
     }
 
-    
+
     //this will be over ridden so not sure what to do with it as well
     public double getProfit() {
-        double profit = 0; //have to actually save all profits from vehicles
+        double profit = 0;
         for (Package pkg : packages) {
             profit += pkg.getPrice();
         }
@@ -190,9 +190,9 @@ public class Vehicle implements Profitable {
     }
 
     //my own method to help with the fill method as well the profit methods for all vehicles
-    public int getMaxRange(ArrayList<Package> packages) {
+    public int getMaxRange(ArrayList<Package> packagesRange) {
         maxRange = 0;
-        for (Package pkg : packages) {
+        for (Package pkg : packagesRange) {
             if (Math.abs(pkg.getDestination().getZipCode() - zipDest) > maxRange) {
                 maxRange = Math.abs(pkg.getDestination().getZipCode() - zipDest);
             }
