@@ -16,7 +16,7 @@ public class Vehicle implements Profitable {
     private double currentWeight;
     private int zipDest;
     private int maxRange;
-    private ArrayList<Package> packages;
+    private ArrayList<Package> packages = new ArrayList<>();
 
     /**
      * Default Constructor
@@ -126,6 +126,7 @@ public class Vehicle implements Profitable {
     public boolean addPackage(Package pkg) {
         if (currentWeight + pkg.getWeight() <= maxWeight) {
             packages.add(pkg);
+            currentWeight += pkg.getWeight();
             return true;
         }
         return false;

@@ -44,7 +44,7 @@ public class CargoPlane extends Vehicle {
      */
     @Override
     public void fill(ArrayList<Package> warehousePackages) {
-        for (int i = 0; isFull(); i += 10) {
+        for (int i = 0; !isFull(); i += 10) {
             if (i > getMaxRange(warehousePackages)) {
                 return;
             }
@@ -72,12 +72,13 @@ public class CargoPlane extends Vehicle {
     @Override
     public double getProfit() {
         double profit = 0;
-        if (super.getPackages() == null) {
+        if (getPackages() == null) {
             return profit;
         }
-        for (Package pkg : super.getPackages()) {
-            profit = profit + pkg.getPrice() - (getMaxRange(getPackages()) * (GAS_RATE / 10.0));
+        for (Package pkg : getPackages()) {
+            profit += pkg.getPrice();
         }
+        profit -= (getMaxRange(getPackages()) * GAS_RATE );
         return profit;
     }
 
@@ -100,7 +101,7 @@ public class CargoPlane extends Vehicle {
                         "License Plate No.: %s \n" +
                         "Destination: %d \n" +
                         "Weight Load: %.2f/%.2f \n" +
-                        "Net Profit: $%.2f \n" +
+                        "Net Profit: ($%.2f) \n" +
                         "=====Shipping Labels===== \n",
                 getLicensePlate(), getZipDest(), getCurrentWeight(), getMaxWeight(), getProfit());
         String secondPart = "";

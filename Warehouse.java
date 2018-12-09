@@ -1,5 +1,6 @@
 import javax.xml.crypto.Data;
 import java.io.File;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,11 +30,12 @@ public class Warehouse {
     final static double PRIME_DAY_DISCOUNT = .15;
 
     public static void printStatisticsReport(double profits, int packagesShipped, int numberOfPackages) {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
         System.out.printf("==========Statistics==========\n" +
                 "Profits:                 %$.2f\n" +
                 "Packages Shipped:            %d\n" +
                 "Packages in Warehouse:       %d\n" +
-                "==============================", profits, packagesShipped, numberOfPackages);
+                "==============================", formatter.format(profits), packagesShipped, numberOfPackages);
     }
 
     /**
@@ -51,6 +53,15 @@ public class Warehouse {
         profit = DatabaseManager.loadProfit(PROFIT_FILE);
         numPackagesShipped = DatabaseManager.loadPackagesShipped(N_PACKAGES_FILE);
         primeDay = DatabaseManager.loadPrimeDay(PRIME_DAY_FILE);
+
+//        for (int i = 0; i < packages.size(); i++) {
+//            System.out.println(packages.get(i).shippingLabel());
+//        }
+
+        vehicles.get(1).fill(packages);
+        vehicles.get(1).setZipDest(40150);
+        System.out.println(vehicles.get(1).getPackages());
+        System.out.println(vehicles.get(1).report());
 
         //2) Show menu and handle user inputs
         Scanner input = new Scanner(System.in);

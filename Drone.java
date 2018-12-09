@@ -52,12 +52,13 @@ public class Drone extends Vehicle {
     @Override
     public double getProfit() {
         double profit = 0;
-        if (super.getPackages() == null) {
+        if (getPackages() == null) {
             return profit;
         }
-        for (Package pkg : super.getPackages()) {
-            profit = profit + pkg.getPrice() - (getMaxRange(getPackages()) * GAS_RATE);
+        for (Package pkg : getPackages()) {
+            profit += pkg.getPrice();
         }
+        profit -= (getMaxRange(getPackages()) * GAS_RATE);
         return profit;
     }
 
