@@ -182,7 +182,77 @@ public class Warehouse {
                     case ("4"):
                         //I think we have to use file reading for this to know if we have any vehicles.
                         System.out.println();
-                        System.out.println("Case 4");
+                        if (vehicles.size() < 1 && packages.size() < 1) {
+                            System.out.println("Error: No vehicles available");
+                            System.out.println("Error: No packages available");
+                        } else if (vehicles.size() < 1) {
+                            System.out.println("Error: No vehicles available");
+                        } else if (packages.size() < 1) {
+                            System.out.println("Error: No packages available");
+                        } else {
+                            System.out.println("Options:\n" +
+                                    "1) Send Truck\n" +
+                                    "2) Send Drone\n" +
+                                    "3) Send Cargo Plane\n" +
+                                    "4) Send First Available");
+                            answer = input.nextLine();
+                            int vehicle = -1;
+                            for (int i = 0; i < vehicles.size(); i++) {
+
+                                if (answer == "1") {
+                                    if (vehicles.get(i) instanceof Truck) {
+                                        vehicle = i;
+                                    }
+                                } else if (answer == "2") {
+                                    if (vehicles.get(i) instanceof Drone) {
+                                        vehicle = i;
+                                    }
+                                } else if (answer == "3") {
+                                    if (vehicles.get(i) instanceof CargoPlane) {
+                                        vehicle = i;
+                                    }
+                                } else if (answer == "4") {
+                                    vehicle = 0;
+                                }
+                            }
+                            if (vehicle == -1) {
+                                System.out.println("Error: No vehicles of selected type are available.");
+                            } else {
+                                System.out.println("ZIP Code Options:\n" +
+                                        "1) Send to first ZIP Code\n" +
+                                        "2) Send to mode of ZIP Codes");
+                                answer = input.nextLine();
+                                if (answer == "1") {
+                                    vehicles.get(vehicle).setZipDest(packages.get(0).getDestination().getZipCode());
+                                } else if (answer == "2") {
+                                    int zip;
+                                    int pack = 0;
+                                    int x = 0;
+                                    int y = 0;
+                                    for (int i = 0; i < packages.size(); i++) {
+                                        zip = packages.get(i).getDestination().getZipCode();
+                                        for (int j = 0; j < packages.size(); j++) {
+                                            if (zip == packages.get(j).getDestination().getZipCode()) {
+                                                x++;
+                                            }
+                                        }
+                                        if (x > y) {
+                                            pack = i;
+                                            y = x;
+                                            x = 0;
+                                        } else {
+                                            x = 0;
+                                        }
+                                    }
+                                    vehicles.get(vehicle).setZipDest(packages.get(pack).getDestination().getZipCode());
+                                }
+                                vehicles.get(vehicle).fill(packages);
+                                System.out.println(vehicles.get(vehicle).report());
+                                numPackagesShipped += vehicles.get(vehicle).getPackages().size();
+                                profit += vehicles.get(vehicle).getProfit();
+                            }
+
+                        }
                         System.out.println();
                         menuRunning = false;
                         break;
