@@ -32,7 +32,7 @@ public class Warehouse {
     public static void printStatisticsReport(double profits, int packagesShipped, int numberOfPackages) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
         System.out.printf("==========Statistics==========\n" +
-                "Profits:                 %$.2f\n" +
+                "Profits:                %s\n" +
                 "Packages Shipped:            %d\n" +
                 "Packages in Warehouse:       %d\n" +
                 "==============================", formatter.format(profits), packagesShipped, numberOfPackages);
@@ -58,10 +58,10 @@ public class Warehouse {
 //            System.out.println(packages.get(i).shippingLabel());
 //        }
 
-        vehicles.get(1).fill(packages);
-        vehicles.get(1).setZipDest(40150);
-        System.out.println(vehicles.get(1).getPackages());
-        System.out.println(vehicles.get(1).report());
+//        vehicles.get(1).fill(packages);
+//        vehicles.get(1).setZipDest(40150);
+//        System.out.println(vehicles.get(1).getPackages());
+//        System.out.println(vehicles.get(1).report());
 
         //2) Show menu and handle user inputs
         Scanner input = new Scanner(System.in);
@@ -129,13 +129,13 @@ public class Warehouse {
                         menuRunning = false;
                         break;
                     case ("2"): //2) Add Vehicle
-                        System.out.println();
-                        System.out.println("Vehicle Options:\n" +
-                                "1) Truck\n" +
-                                "2) Drone\n" +
-                                "3) Cargo Plane");
                         boolean vehicleRunning = true;
                         while (vehicleRunning) {
+                            System.out.println();
+                            System.out.println("Vehicle Options:\n" +
+                                    "1) Truck\n" +
+                                    "2) Drone\n" +
+                                    "3) Cargo Plane");
                             String answerVehicle = input.nextLine();
                             System.out.println();
                             switch (answerVehicle) {
@@ -180,15 +180,11 @@ public class Warehouse {
                         menuRunning = false;
                         break;
                     case ("4"):
-                        //I think we have to use file reading for this to know if we have any vehicles.
                         System.out.println();
-                        if (vehicles.size() < 1 && packages.size() < 1) {
-                            System.out.println("Error: No vehicles available");
-                            System.out.println("Error: No packages available");
-                        } else if (vehicles.size() < 1) {
-                            System.out.println("Error: No vehicles available");
+                        if (vehicles.size() < 1) {
+                            System.out.println("Error: No vehicles available.");
                         } else if (packages.size() < 1) {
-                            System.out.println("Error: No packages available");
+                            System.out.println("Error: No packages available.");
                         } else {
                             System.out.println("Options:\n" +
                                     "1) Send Truck\n" +
@@ -198,20 +194,19 @@ public class Warehouse {
                             answer = input.nextLine();
                             int vehicle = -1;
                             for (int i = 0; i < vehicles.size(); i++) {
-
-                                if (answer == "1") {
+                                if (answer.equals("1")) {
                                     if (vehicles.get(i) instanceof Truck) {
                                         vehicle = i;
                                     }
-                                } else if (answer == "2") {
+                                } else if (answer.equals("2")) {
                                     if (vehicles.get(i) instanceof Drone) {
                                         vehicle = i;
                                     }
-                                } else if (answer == "3") {
+                                } else if (answer.equals("3")) {
                                     if (vehicles.get(i) instanceof CargoPlane) {
                                         vehicle = i;
                                     }
-                                } else if (answer == "4") {
+                                } else if (answer.equals("4")) {
                                     vehicle = 0;
                                 }
                             }
@@ -222,9 +217,9 @@ public class Warehouse {
                                         "1) Send to first ZIP Code\n" +
                                         "2) Send to mode of ZIP Codes");
                                 answer = input.nextLine();
-                                if (answer == "1") {
+                                if (answer.equals("1")) {
                                     vehicles.get(vehicle).setZipDest(packages.get(0).getDestination().getZipCode());
-                                } else if (answer == "2") {
+                                } else if (answer.equals("2")) {
                                     int zip;
                                     int pack = 0;
                                     int x = 0;
@@ -250,6 +245,7 @@ public class Warehouse {
                                 System.out.println(vehicles.get(vehicle).report());
                                 numPackagesShipped += vehicles.get(vehicle).getPackages().size();
                                 profit += vehicles.get(vehicle).getProfit();
+                                vehicles.remove(vehicle);
                             }
 
                         }

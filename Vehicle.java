@@ -169,7 +169,10 @@ public class Vehicle implements Profitable {
             for (int j = 0; j < warehousePackages.size(); j++) {
                 int distance = Math.abs(warehousePackages.get(j).getDestination().getZipCode() - getZipDest());
                 if (distance == i) {
-                    addPackage(warehousePackages.get(j));
+                    if (addPackage(warehousePackages.get(j))) {
+                        warehousePackages.remove(j);
+                        j--;
+                    }
                 }
             }
         }

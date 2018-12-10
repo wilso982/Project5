@@ -51,7 +51,9 @@ public class CargoPlane extends Vehicle {
             for (int j = 0; j < warehousePackages.size(); j++) {
                 int distance = Math.abs(warehousePackages.get(j).getDestination().getZipCode() - getZipDest());
                 if (distance <= i && distance > i - 10) {
-                    addPackage(warehousePackages.get(j));
+                    if (addPackage(warehousePackages.get(j))) {
+                        warehousePackages.remove(j);
+                    }
                 }
             }
         }
